@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ object.title }} {% endblock title %}
+
+{% block content %}
+<!--<hr>-->
+<!--<br>-->
+<!--<div class="container-fluid">-->
+
+<!--        <div class="card ">-->
+<!--        <div class="card-body ">-->
+<!--            {%  if object.photo %}-->
+<!--            <img class="card-img-top" style="max-width: 600px;" src="{{ object.photo.url }}" alt="{{ object.title }}">-->
+<!--            {% endif %}-->
+<!--            <h1 class="card-title">{{ object.title }}</h1>-->
+<!--            <h6 class="card-subtitle mb-2 text-muted">Created by {{ object.author | title}} | {{ object.date }}</h6>-->
+<!--            <br>-->
+<!--            <p class="card-text">{{ object.body | safe}}</p>-->
+<!--            <a type="button" class="btn btn-success" href="{% url 'article_list' %}">Barcha postlar</a>-->
+<!--            <a type="button" class="btn btn-primary" href="{% url 'article_edit' object.id %}">Tahrirlash</a>-->
+<!--            <a type="button" class="btn btn-danger" href="{% url 'article_delete' object.id %}">O'chirish</a>-->
+<!--        </div>-->
+<!--            -->
+<!--</div>-->
+
+<div class="container">
+    <div class="row border-top">
+        <div class="col-md-3 "></div>
+        <div class="col-md-6 ">
+            <br>
+            {%  if object.photo %}
+            <img class="card-img-top" style="max-width: 1000px;" src="{{ object.photo.url }}" alt="{{ object.title }}">
+            {% endif %}
+            <h1 class="card-title" style="margin-top:1.5rem">{{ object.title }}</h1>
+            <h6 class="card-subtitle mb-2 text-muted">Created by {{ object.author | title}} | {{ object.date }}</h6>
+            <br>
+            <p class="card-text">{{ object.body | safe}}</p>
+
+<!--            # Like button -->
+            {% if user.is_authenticated %}
+            <form action="{% url 'like_post' object.pk %}" method="POST">
+                {% csrf_token %}
+
+                {% if liked %}
+                    <button type="submit" name="object_id" value="{{ object.id }}" class="btn btn-danger btn-lg"><i class="fa fa-thumbs-down"></i></button>
+                {% else %}
+                    <button type="submit" name="object_id" value="{{ object.id }}" class="btn btn-primary btn-lg"><i class="fa fa-thumbs-up"> </i></button>
+                {% endif %}
+                    - {{ total_likes }} Likes
+
+            </form>
+            {% else %}
+            <a type="button" class="btn btn-primary fa fa-thumbs-up btn-lg"  href="{% url 'login' %}?next={{request.path}}"></a>
+            {% endif %}
+
+
+            {% if request.user.is_superuser %}
+                <a type="button" class="btn btn-primary" href="{% url 'article_edit' object.id %}" style="margin:5px">Edit</a>
+                <a type="button" class="btn btn-danger" href="{% url 'article_delete' object.id %}" style="margin:5px">Delete</a>
+            {% endif %}
+
+        </div>
+
+
+
+<!--            {%  for comment in articles.comments.all %}-->
+<!--                    <p>{{ comment.body }}</p>-->
+<!--                    <p class="blockquote-footer">{{ comment.author | title }}</p>-->
+<!--                    <p class="blockquote-footer">{{ comment.date_added }}</p>-->
+
+<!--            {% endfor %}-->
+
+
+<!--        ################### COMMENT SECTION ####################-->
+
+        <section style="background-color: light;">
+            <div class="container my-5 py-5">
+                <hr>
+
+                <div class="row d-flex justify-content-center">
+
+                    <div class="col-md-12 col-lg-10 col-xl-8">
+                        <h2>Comments...</h2>
+                        <br>
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                {%  for comment in articles.comments.all %}
+                                <div class="d-flex flex-start align-items-center">
+                                    <img class="rounded-circle shadow-1-strong me-3"
+                                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbJRzAtaIwJCUrvtOtiRU98IrSM93vP_oGSYVXQAFL5vZaVLnwFXkdyf4dJG1r_d-2JXo&usqp=CAU" alt="avatar" width="60"
+                                         height="60" />
+                                    <div>
+                                        <h6 class="fw-bold text-primary mb-1">{{ comment.author | title }}</h6>
+                                        <p class="text-muted small mb-0">
+                                            Shared publicly - {{ comment.date_added }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <p class="mt-3 mb-4 pb-2">
+                                    {{ comment.body }}
+                                </p>
+                                <hr>
+                                {% endfor %}
+
+<!--                                <div class="small d-flex justify-content-start">-->
+<!--                                    <a href="#!" class="d-flex align-items-center me-3">-->
+<!--                                        <i class="far fa-thumbs-up me-2"></i>-->
+<!--                                        <p class="mb-0">Like</p>-->
+<!--                                    </a>-->
+<!--                                    <a href="#!" class="d-flex align-items-center me-3">-->
+<!--                                        <i class="far fa-comment-dots me-2"></i>-->
+<!--                                        <p class="mb-0">Comment</p>-->
+<!--                                    </a>-->
+<!--                                    <a href="#!" class="d-flex align-items-center me-3">-->
+<!--                                        <i class="fas fa-share me-2"></i>-->
+<!--                                        <p class="mb-0">Share</p>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">-->
+<!--                                <div class="d-flex flex-start w-100">-->
+<!--                                    <img class="rounded-circle shadow-1-strong me-3"-->
+<!--                                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"-->
+<!--                                         height="40" />-->
+<!--                                    <div class="form-outline w-100">-->
+<!--                <textarea class="form-control" id="textAreaExample" rows="4"-->
+<!--                          style="background: #fff;"></textarea>-->
+<!--                                        <label class="form-label" for="textAreaExample">Message</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="float-end mt-2 pt-1">-->
+<!--                                    <button type="button" class="btn btn-primary btn-sm">Post comment</button>-->
+<!--                                    <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                        <br>
+                        <a type="button" class="btn btn-warning" href="{% url 'article_comment' object.id %}" style="margin:5px">Add Comments</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        </div>
+
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<nav aria-label="Page navigation example">
+
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a style="padding:12px; margin:12px" class="page-link" href="#" tabindex="-1">← Previous</a>
+        </li>
+
+        <li class="page-item">
+            <a style="padding:12px; margin:12px" class="page-link" href="{% url 'article_list' %}" tabindex="-1">All Articles</a>
+        </li>
+
+
+
+        <li class="page-item">
+            <a style="padding:12px; margin:12px" class="page-link" href="#">Next →</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+{% include 'footer.html' %}
+
+
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+<div class="">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="bg-white rounded shadow-sm py-9 px-4"><img src="https://www.linkpicture.com/q/img3_15.jpg" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+        <div class="col-lg-10 " style="padding:  1rem 0">
+            <h1 class="display-5 fw-bold lh-1 mb-3">Asliddin Eshonkulov</h1>
+            <h2 class="text-secondary">Software Engineer</h2>
+            <ul class="social mb-0 list-inline mt-3"  style="padding:  1rem 0">
+<!--                <li class="list-inline-item"><a class="btn btn-primary btn-lg" target="_blank" style="background-color:  primary;" href="https://t.me/eshonkulov_asliddin" role="button">-->
+<!--                    <i class="fab fa-telegram"></i>-->
+<!--                </a></li>-->
+<!--                <i class="fa fa-telegralg" aria-hidden="true"></i>-->
+                <li class="list-inline-item"><a href="https://t.me/eshonkulov_asliddin"  class="btn btn-outline-primary btn-lg px-4 me-md-2" target="_blank"><i class="fa fa-telegram fas-fa-circle"></i></a></li>
+                <li class="list-inline-item"><a href="https://github.com/asliddin2002developer" class="btn btn-outline-secondary btn-lg px-4 me-md-2" target="_blank"><i class="fa fa-github"></i></a></li>
+                <li class="list-inline-item"><a href="https://www.linkedin.com/in/asliddin-eshonkulov-developerr/" class="btn btn-outline-primary btn-lg px-4 me-md-2" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+<!--                <li class="list-inline-item"><a class="btn btn-primary btn-lg" target="_blank" style="background-color: #333333;" href="https://github.com/asliddin2002developer"  role="button">-->
+<!--                    <i class="fab fa-github"></i>-->
+<!--                </a></li>-->
+<!--                <li class="list-inline-item"><a class="btn btn-primary btn-lg" target="_blank" style="background-color: #0082ca;" href="https://www.linkedin.com/in/asliddin-eshonkulov-developerr/"  role="button">-->
+<!--                    <i class="fab fa-linkedin-in"></i>-->
+<!--                </a></li>-->
+            </ul>
+            <p class="lead"  style="padding:  1rem 0">I write what I have learned through books and experience!</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <a  type="button" class="btn btn-primary btn-lg px-4 me-md-2" href="{% url 'article_list' %}" >Read Blog</a>
+                <a href="{% url 'about' %}"  type="button" class="btn btn-outline-secondary btn-lg px-4">About me</a>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

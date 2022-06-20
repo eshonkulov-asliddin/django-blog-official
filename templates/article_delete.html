@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Post{% endblock title %}
+
+{% block content %}
+{% if request.user.is_superuser %}
+<h1>Delete Post</h1>
+<form action="" method="post">{% csrf_token %}
+    <p> "{{ articles.title }}" nomli postni o'chirishni istaysizmi?</p>
+    <button class="btn btn-danger ml-2" type="submit">Ha</button>
+</form>
+{% else %}
+<h2>Sorry You are not allowed to delete a Post</h2 >
+<br>
+<a href="{% url 'article_list' %}" class="btn btn-primary ml-2" type="button">Read Articles</a>
+{% endif %}
+{% endblock content %}
