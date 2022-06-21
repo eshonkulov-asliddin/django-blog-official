@@ -15,8 +15,12 @@
 
 {% for article in object_list %}
 
-    <div class="container">
-    <div class="container bcontent">
+
+<div class="container">
+    <div class="">
+<!--    <div class=" bcontent">-->
+<!--    <div class="col-md-3 "></div>-->
+    <div class="col-md-6 ">
     <div class="card" style="min-width: 430px; max-width: 700px">
         <div class="row no-gutters">
             <div class="col-sm-5">
@@ -38,6 +42,7 @@
             <span class="text-muted">Created by {{ article.author | title }} &middot; {{ article.date }}</span>
         </div>
 
+    </div>
     </div>
     </div>
     </div>
