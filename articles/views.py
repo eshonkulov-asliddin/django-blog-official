@@ -36,6 +36,8 @@ class ArticleListView(ListView):
 class ArticleDetailView(DetailView):
     model = Articles
     template_name = 'article_detail.html'
+    paginate_by: 2
+
     def get_context_data(self, *args, **kwargs):
         # context = Articles.objects.all()
         context = super().get_context_data(**kwargs)

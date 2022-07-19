@@ -28,11 +28,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = 'django-insecure-wrf1j3jr*i4#o_u(jffdaanptzrit$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
-
+# DEBUG = env.bool('DEBUG', default=False)
+DEBUG = True
 ALLOWED_HOSTS = ['.herokuapp.com', 'asldevblog.herokuapp.com', '127.0.0.1', 'localhost']
 
 
@@ -94,8 +94,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': env.dj_db_url('DATABASE_URL')
+# }
+
 DATABASES = {
-    'default': env.dj_db_url('DATABASE_URL')
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -233,3 +240,10 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+AWS_ACCESS_KEY_ID = 'AKIAUB7D36AGBTUJPA3G'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'official-blog-img-bucket'
